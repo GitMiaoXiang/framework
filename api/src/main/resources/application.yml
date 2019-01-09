@@ -1,0 +1,66 @@
+spring:
+  profiles:
+    include: test
+
+mybatis:
+#  配置xml 的扫描路径
+#  base-locations: classpath*:org/spring/boot/base/*.xml
+#  check-com.mx.framework.framework.config-location: true
+#  type-aliases-package: com.maoxiang.springboot_config.entity
+  configuration:
+#     开启驼峰命名检查
+     map-underscore-to-camel-case: true
+
+#通用mapper
+mapper:
+  mappers: com.mx.framework.base.mapper.MyMapper
+  not-empty: false
+  identity: MYSQL
+
+
+#  配置分页插件
+pagehelper:
+  autoDialect: true
+  closeConn: false
+  reasonable: true
+
+httpclient:
+  #最大连接数
+  maxTotal: 100
+  #并发数
+  defaultMaxPerRoute: 20
+  #创建连接的最长时间
+  connectTimeout: 1000
+  #从连接池中获取到连接的最长时间
+  connectionRequestTimeout: 500
+  #数据传输的最长时间
+  socketTimeout: 10000
+  #提交请求前测试连接是否可用
+  staleConnectionCheckEnabled: true
+
+config:
+  pageSize: 15
+
+
+
+
+#日志配置
+logging:
+  config: classpath:logback-spring.xml
+#日志输出类型
+#  pattern:
+#    console:"%d - %msg%n"
+
+#  注：二者不能同时使用，如若同时使用，则只有logging.file生效
+#  默认情况下，日志文件的大小达到10MB时会切分一次，产生新的日志文件，默认级别为：ERROR、WARN、INFO
+#    path: ../tomcatlogs/
+#    file: ../tomcatlogs/info.com.mx.framework.framework.log
+#    logging.level：日志级别控制前缀，*为包名或Logger名
+#    LEVEL：选项TRACE, DEBUG, INFO, WARN, ERROR, FATAL, OFF
+#    level:
+#     com: debug
+#spring:
+#  devtools:
+#    restart:
+#      enabled: true
+#      additional-paths: com
