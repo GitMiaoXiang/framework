@@ -4,6 +4,7 @@ import com.mx.framework.utils.ResultUtil;
 import com.mx.framework.cosntenum.ResponseEnum;
 import com.mx.framework.result.HttpResult;
 import com.mx.framework.entity.cto.ResultData;
+import org.apache.http.Header;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
@@ -114,6 +115,7 @@ public class HttpAPIService implements IHttpApiService {
 
                 // 把表单放到post里
                 httpPost.setEntity(urlEncodedFormEntity);
+                httpPost.setHeaders((Header[]) map.get("heads"));
             }
 
             // 发起请求

@@ -1,5 +1,6 @@
 package com.mx.framework.rabbitmq;
 
+import com.mx.framework.entity.model.Article;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.rabbit.connection.CorrelationData;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
@@ -13,9 +14,9 @@ import java.util.Date;
 import java.util.Map;
 
 /**
- * @author : ShangGuanMingPeng
- * Description :
- * Date :Create in ${date} ${time}
+ * @author ShangGuanMingPeng
+ * date: 2019/1/17 16:30
+ * Description: 
  * Modified By :
  */
 @Component
@@ -48,6 +49,14 @@ public class RabbitSender {
         rabbitTemplate.setConfirmCallback(confirmCallback);
         CorrelationData correlationData = new CorrelationData();
         correlationData.setId(String.valueOf(new Date().getTime()));
-        rabbitTemplate.convertAndSend("exchange-1","springboot.hello", msg,correlationData);
+        rabbitTemplate.convertAndSend("exchange-1","springboot.*", msg,correlationData);
+    }
+
+    public void sendArticle(Article article){
+        rabbitTemplate.setReturnCallback(returnCallback);
+        rabbitTemplate.setConfirmCallback(confirmCallback);
+        CorrelationData correlationData = new CorrelationData();
+        correlationData.setId(String.valueOf(new Date().getTime()));
+        rabbitTemplate.convertAndSend("exchange-1","springboot.ff", article,correlationData);
     }
 }

@@ -5,11 +5,12 @@ import lombok.Data;
 
 import javax.persistence.Id;
 import javax.persistence.Table;
+import java.io.Serializable;
 import java.util.Date;
 
 @Table(name = "article")
 @Data
-public class Article {
+public class Article implements Serializable {
     @Id
     private Integer id;
 

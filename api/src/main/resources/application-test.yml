@@ -47,11 +47,17 @@ spring:
 
   #  RabbitMQ
   rabbitmq:
-    host: localhost
-    port: 5673
-    username: guest
-    password: guest
+    host: 192.168.5.212
+    port: 5672
+    username: root
+    password: sa
     publisher-confirms: true
     publisher-returns: true
     template:
       mandatory: true
+    listener:
+      simple:
+        #签收模式 手动签到
+        acknowledge-mode: manual
+        concurrency: 1
+        max-concurrency: 5

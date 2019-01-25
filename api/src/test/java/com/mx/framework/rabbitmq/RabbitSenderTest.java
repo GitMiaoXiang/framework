@@ -1,6 +1,7 @@
 package com.mx.framework.rabbitmq;
 
 import com.mx.framework.ApiApplication;
+import com.mx.framework.entity.model.Article;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,5 +30,12 @@ public class RabbitSenderTest {
         hashMap.put("number", "123456");
         hashMap.put("send_time", new Date().toString());
         rabbitSender.send("Hello SpringBoot RabbitMq", hashMap);
+    }
+
+    @Test
+    public void sendArticle() {
+        Article article = new Article();
+        article.setArContent("haha");
+        rabbitSender.sendArticle(article);
     }
 }
