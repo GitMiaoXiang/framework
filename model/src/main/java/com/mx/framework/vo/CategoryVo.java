@@ -1,7 +1,7 @@
-package com.mx.framework.entity.vo;
+package com.mx.framework.vo;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.mx.framework.entity.model.Category;
+import com.mx.framework.po.Category;
 import lombok.Data;
 
 import java.util.List;

@@ -1,8 +1,8 @@
 package com.mx.framework.controller;
 
 import com.mx.framework.cosntenum.ResponseEnum;
-import com.mx.framework.entity.cto.ResultData;
-import com.mx.framework.entity.model.Article;
+import com.mx.framework.dto.ResultData;
+import com.mx.framework.po.Article;
 import com.mx.framework.service.IArticleService;
 import com.mx.framework.utils.ResultUtil;
 import org.springframework.beans.factory.annotation.Autowired;

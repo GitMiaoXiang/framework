@@ -2,7 +2,7 @@ package com.mx.framework.utils;
 
 import com.alibaba.fastjson.JSON;
 import com.mx.framework.cosntenum.ResponseEnum;
-import com.mx.framework.entity.cto.ResultData;
+import com.mx.framework.dto.ResultData;
 import lombok.extern.slf4j.Slf4j;
 
 /**

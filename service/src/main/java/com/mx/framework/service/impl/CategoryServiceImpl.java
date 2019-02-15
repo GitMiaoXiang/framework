@@ -2,9 +2,9 @@ package com.mx.framework.service.impl;
 
 import com.mx.framework.base.service.BaseService;
 import com.mx.framework.cosntenum.ResponseEnum;
-import com.mx.framework.entity.model.Category;
-import com.mx.framework.entity.cto.ResultData;
-import com.mx.framework.entity.vo.CategoryVo;
+import com.mx.framework.po.Category;
+import com.mx.framework.dto.ResultData;
+import com.mx.framework.vo.CategoryVo;
 import com.mx.framework.mapper.CategoryMapper;
 import com.mx.framework.service.ICategoryService;
 import com.mx.framework.utils.ResultUtil;

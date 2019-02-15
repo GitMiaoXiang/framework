@@ -1,4 +1,4 @@
-package com.mx.framework.entity.cto;
+package com.mx.framework.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.mx.framework.cosntenum.ResponseEnum;

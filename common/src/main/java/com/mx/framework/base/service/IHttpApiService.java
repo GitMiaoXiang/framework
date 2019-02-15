@@ -1,7 +1,6 @@
 package com.mx.framework.base.service;
 
-import com.mx.framework.entity.cto.ResultData;
-import org.apache.http.Header;
+import com.mx.framework.dto.ResultData;
 
 import java.util.Map;
 

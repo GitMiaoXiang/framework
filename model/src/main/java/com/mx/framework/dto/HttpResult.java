@@ -1,4 +1,4 @@
-package com.mx.framework.result;
+package com.mx.framework.dto;
 
 import lombok.Data;
 

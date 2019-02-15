@@ -1,4 +1,4 @@
-package com.mx.framework.entity.model;
+package com.mx.framework.po;
 
 
 import lombok.Data;

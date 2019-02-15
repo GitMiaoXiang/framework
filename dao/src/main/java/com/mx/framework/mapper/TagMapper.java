@@ -1,7 +1,7 @@
 package com.mx.framework.mapper;
 
 import com.mx.framework.base.mapper.MyMapper;
-import com.mx.framework.entity.model.Tag;
+import com.mx.framework.po.Tag;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 

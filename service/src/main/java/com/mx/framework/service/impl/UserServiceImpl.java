@@ -2,7 +2,7 @@ package com.mx.framework.service.impl;
 
 import com.mx.framework.service.IUserService;
 import com.mx.framework.base.service.BaseService;
-import com.mx.framework.entity.model.User;
+import com.mx.framework.po.User;
 import com.mx.framework.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

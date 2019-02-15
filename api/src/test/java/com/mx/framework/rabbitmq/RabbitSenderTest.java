@@ -1,7 +1,7 @@
 package com.mx.framework.rabbitmq;
 
 import com.mx.framework.ApiApplication;
-import com.mx.framework.entity.model.Article;
+import com.mx.framework.po.Article;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

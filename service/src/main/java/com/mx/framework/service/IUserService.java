@@ -1,7 +1,7 @@
 package com.mx.framework.service;
 
 import com.mx.framework.base.service.IBaseService;
-import com.mx.framework.entity.model.User;
+import com.mx.framework.po.User;
 
 /**
  * @Author:上官名鹏

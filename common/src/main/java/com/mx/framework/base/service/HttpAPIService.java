@@ -2,8 +2,8 @@ package com.mx.framework.base.service;
 
 import com.mx.framework.utils.ResultUtil;
 import com.mx.framework.cosntenum.ResponseEnum;
-import com.mx.framework.result.HttpResult;
-import com.mx.framework.entity.cto.ResultData;
+import com.mx.framework.dto.HttpResult;
+import com.mx.framework.dto.ResultData;
 import org.apache.http.Header;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.config.RequestConfig;

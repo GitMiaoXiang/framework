@@ -1,9 +1,9 @@
 package com.mx.framework.service.impl;
 
 import com.mx.framework.ApiApplication;
-import com.mx.framework.entity.cto.ResultData;
-import com.mx.framework.entity.model.Article;
-import com.mx.framework.entity.vo.CategoryVo;
+import com.mx.framework.dto.ResultData;
+import com.mx.framework.po.Article;
+import com.mx.framework.vo.CategoryVo;
 import com.mx.framework.mapper.ArticleMapper;
 import com.mx.framework.service.IArticleService;
 import com.mx.framework.service.ICategoryService;

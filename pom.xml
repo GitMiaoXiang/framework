@@ -22,6 +22,7 @@
         <module>api</module>
         <module>model</module>
         <module>common</module>
+        <module>mq</module>
     </modules>
 
     <properties>

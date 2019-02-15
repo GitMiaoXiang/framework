@@ -6,7 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
-import com.mx.framework.entity.cto.ResultData;
+import com.mx.framework.dto.ResultData;
 
 import javax.servlet.http.HttpServletRequest;
 

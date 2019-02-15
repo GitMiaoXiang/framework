@@ -1,6 +1,6 @@
 package com.mx.framework.rabbitmq;
 
-import com.mx.framework.entity.model.Article;
+import com.mx.framework.po.Article;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.rabbit.connection.CorrelationData;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;

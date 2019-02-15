@@ -1,4 +1,4 @@
-package com.mx.framework.entity;
+package com.mx.framework;
 
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
