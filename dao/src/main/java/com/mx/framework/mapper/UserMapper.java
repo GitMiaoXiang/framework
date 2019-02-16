@@ -3,14 +3,16 @@ package com.mx.framework.mapper;
 import com.mx.framework.base.mapper.MyMapper;
 import com.mx.framework.business.UserRolePer;
 import com.mx.framework.po.User;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
+import com.mx.framework.po.UserRole;
+import com.mx.framework.vo.UserRoleVo;
+import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 /**
  * @author : ShangGuanMingPeng
- * Description : 
+ * Description :
  * Date :Create in
  * Modified By :
  */
@@ -23,4 +25,16 @@ public interface UserMapper extends MyMapper<User> {
             "LEFT JOIN user_permission ON user_role.id = user_permission.role_id" +
             "where `user`.name=#{name}")
     UserRolePer queryRolePer(@Param("name") String name);
+
+    @Select("SELECT u.id,u.`name` from `user` as u where u.id = #{userId}")
+    @Results({
+            @Result(column = "id",property = "id"),
+            @Result(property = "userRoles",javaType = List.class,column = "id",
+            many = @Many(select = "com.mx.framework.mapper.UserMapper.queryRoleByUserId"))
+    })
+    UserRoleVo queryUserRole(@Param("userId") Integer userId);
+
+    @Select("SELECT * from user_rule where user_id = #{userId}")
+    List<UserRole> queryRoleByUserId(int userId);
+
 }
