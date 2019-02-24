@@ -12,7 +12,7 @@ import java.util.List;
 
 /**
  * @author : ShangGuanMingPeng
- * Description :
+ * Description : 
  * Date :Create in
  * Modified By :
  */
@@ -37,4 +37,6 @@ public interface UserMapper extends MyMapper<User> {
     @Select("SELECT * from user_rule where user_id = #{userId}")
     List<UserRole> queryRoleByUserId(int userId);
 
+
+    User findByUserName(String username);
 }

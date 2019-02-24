@@ -8,6 +8,8 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 @Table(name = "user")
 @Data
@@ -35,4 +37,5 @@ public class User {
     @Email(message = "邮箱不合法。")
     private String mailbox;
 
+    private Set<UserRole> userRoles = new HashSet<>();
 }

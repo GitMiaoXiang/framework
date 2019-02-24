@@ -11,14 +11,15 @@ import javax.persistence.Table;
  * Date :Create in 2019/2/15 22:42
  * Modified By :
  */
-@Table(name = "user_permission")
+@Table(name = "permission")
 @Data
 public class UserPermission {
 
     @Id
-    private Integer id;
+    private Integer pid;
 
-    private String permission;
+    private String name;
 
-    private Integer roleId;
+    private String url;
+
 }
