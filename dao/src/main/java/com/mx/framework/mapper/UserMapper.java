@@ -3,6 +3,7 @@ package com.mx.framework.mapper;
 import com.mx.framework.base.mapper.MyMapper;
 import com.mx.framework.business.UserRolePer;
 import com.mx.framework.po.User;
+import com.mx.framework.po.UserPermission;
 import com.mx.framework.po.UserRole;
 import com.mx.framework.vo.UserRoleVo;
 import org.apache.ibatis.annotations.*;
@@ -34,9 +35,22 @@ public interface UserMapper extends MyMapper<User> {
     })
     UserRoleVo queryUserRole(@Param("userId") Integer userId);
 
-    @Select("SELECT * from user_rule where user_id = #{userId}")
+    @Select("SELECT * FROM permission p JOIN permission_role pr on p.pid = pr.pid WHERE pr.rid = #{rid}")
+    List<UserPermission> queryByRoleId(Long rid);
+
+    @Select("SELECT * FROM role r JOIN user_role ur on r.rid = ur.rid WHERE ur.uid = #{userId}")
+    @Results({
+            @Result(column = "rid",property = "rid"),
+            @Result(property = "permissions",javaType = List.class,column = "rid",
+            many = @Many(select = "com.mx.framework.mapper.UserMapper.queryByRoleId"))
+    })
     List<UserRole> queryRoleByUserId(int userId);
 
-
+    @Select("SELECT * FROM `user`")
+    @Results({
+            @Result(column = "id",property = "id"),
+            @Result(property = "userRoles",javaType = List.class,column = "id",
+            many = @Many(select = "com.mx.framework.mapper.UserMapper.queryRoleByUserId"))
+    })
     User findByUserName(String username);
 }

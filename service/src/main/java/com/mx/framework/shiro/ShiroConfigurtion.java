@@ -20,21 +20,31 @@ import java.util.LinkedHashMap;
 @Configurable
 public class ShiroConfigurtion {
 
+    /**
+     * 将securityManager 注入到 ShiroFilterFactoryBean中
+     * @param securityManager
+     * @return
+     */
     @Bean("shiroFilter")
-    public ShiroFilterFactoryBean shiroFilter(SecurityManager securityManager){
+    public ShiroFilterFactoryBean shiroFilter(@Qualifier("securityManager") SecurityManager securityManager){
         ShiroFilterFactoryBean shiroFilterFactoryBean = new ShiroFilterFactoryBean();
         shiroFilterFactoryBean.setSecurityManager(securityManager);
         shiroFilterFactoryBean.setLoginUrl("/login");
         shiroFilterFactoryBean.setSuccessUrl("/index");
-        shiroFilterFactoryBean.setUnauthorizedUrl("/unauthorized");
+        shiroFilterFactoryBean.setUnauthorizedUrl("/unauthorized"); //没有权限访问
 
         LinkedHashMap<String,String> filterChainDefinitionMap = new LinkedHashMap<>();
-        filterChainDefinitionMap.put("/index","authcc");
-        filterChainDefinitionMap.put("/login","anon");
+        filterChainDefinitionMap.put("/index","authc"); //必须登录 在DefaultFilter中
+        filterChainDefinitionMap.put("/login","anon"); //不用校验
         shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);
         return shiroFilterFactoryBean;
     }
 
+    /**
+     * 将AuthRealm 注入到securityManager
+     * @param authRealm
+     * @return
+     */
     @Bean("securityManager")
     public SecurityManager securityManager(@Qualifier("authRealm") AuthRealm authRealm){
         DefaultWebSecurityManager defaultWebSecurityManager = new DefaultWebSecurityManager();
@@ -42,6 +52,11 @@ public class ShiroConfigurtion {
         return defaultWebSecurityManager;
     }
 
+    /**
+     * 自定义AuthRealm 和 设置密码校验规则
+     * @param credentialMatcher
+     * @return
+     */
     @Bean("authRealm")
     public AuthRealm authRealm(@Qualifier("credentialMatcher") CredentialMatcher credentialMatcher){
         AuthRealm authRealm = new AuthRealm();
@@ -49,11 +64,20 @@ public class ShiroConfigurtion {
         return authRealm;
     }
 
+    /**
+     * 自定义密码校验规则
+     * @return
+     */
     @Bean("credentialMatcher")
     public CredentialMatcher credentialMatcher(){
         return new CredentialMatcher();
     }
 
+    /**
+     * 跟Spring关联
+     * @param securityManager
+     * @return
+     */
     @Bean
     public AuthorizationAttributeSourceAdvisor authorizationAttributeSourceAdvisor(@Qualifier("securityManager") SecurityManager securityManager){
         AuthorizationAttributeSourceAdvisor advisor = new AuthorizationAttributeSourceAdvisor();
@@ -61,8 +85,12 @@ public class ShiroConfigurtion {
         return advisor;
     }
 
+    /**
+     * 配置可以使用代理
+     * @return
+     */
     @Bean
-    DefaultAdvisorAutoProxyCreator defaultAdvisorAutoProxyCreator(){
+    public DefaultAdvisorAutoProxyCreator defaultAdvisorAutoProxyCreator(){
         DefaultAdvisorAutoProxyCreator defaultAdvisorAutoProxyCreator = new DefaultAdvisorAutoProxyCreator();
         defaultAdvisorAutoProxyCreator.setProxyTargetClass(true);
         return defaultAdvisorAutoProxyCreator;
