@@ -1,6 +1,6 @@
 package com.mx.framework.mapper;
 
-import com.mx.framework.ApiApplication;
+import com.mx.framework.po.User;
 import com.mx.framework.po.UserRole;
 import com.mx.framework.vo.UserRoleVo;
 import org.junit.Test;
@@ -10,8 +10,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.List;
-
-import static org.junit.Assert.*;
 
 /**
  * @author : ShangGuanMingPeng
@@ -27,15 +25,9 @@ public class UserMapperTest {
     private UserMapper userMapper;
 
     @Test
-    public void queryRoleByUserId() {
-        List<UserRole> userRoles = userMapper.queryRoleByUserId(1);
-        System.out.println(userRoles.toString());
-        assert !userRoles.isEmpty();
+    public void queryByName(){
+        User user = userMapper.findByUserName("admin");
+        assert user!=null;
     }
 
-    @Test
-    public void queryUserRole() {
-        UserRoleVo userRoleVo = userMapper.queryUserRole(1);
-        assert userRoleVo!=null;
-    }
 }

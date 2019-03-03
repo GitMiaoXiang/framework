@@ -29,6 +29,7 @@ public class GlobalDefaultExceptionHandler {
             log.info("==================业务异常==================");
             return ResultUtil.errorResult(ResponseEnum.BUSINESS_EXCEPTION);
         }
+        e.printStackTrace();
         return ResultUtil.errorResult(ResponseEnum.SYSTEM_EXCEPTION);
     }
 }

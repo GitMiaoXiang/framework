@@ -9,9 +9,11 @@ import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 
@@ -28,31 +30,55 @@ public class UserController {
     private IUserService userService;
 
     @GetMapping("/user")
+    @ResponseBody
     public ResultData<List<User>> getUserInfo(){
         List<User> users = userService.queryAll();
         return ResultUtil.successResult(users,ResponseEnum.SUCCESS);
     }
 
-    @PostMapping("/loginPage")
-    public ResultData<String> loginPage(){
-        return ResultUtil.successResult("登录页面",ResponseEnum.SUCCESS);
-    }
-
     @GetMapping("/index")
-    public ResultData<String> index(){
-        return ResultUtil.successResult("首页",ResponseEnum.SUCCESS);
+    public String index(){
+        return "index";
     }
 
-    @PostMapping("/login")
+    @GetMapping("/loginPage")
+    public String loginPage(){
+        return "loginPage";
+    }
+
+    @GetMapping("/admin")
+    public String admin(){
+        return "admin success";
+    }
+
+    @GetMapping("/unauthorized")
+    public String unauthorized(){
+        return "unauthorized";
+    }
+
+    @GetMapping("/edit")
+    public String edit(){
+        return "edit";
+    }
+
+    @GetMapping("/logout")
+    public String logout(){
+        Subject subject = SecurityUtils.getSubject();
+        if(subject!=null){
+            subject.logout();
+        }
+        return "login";
+    }
+
+    @GetMapping("/login")
     public ResultData login(@RequestParam("username") String username,
                             @RequestParam("password") String password,
-                            HttpServletRequest request){
+                            HttpSession session){
         UsernamePasswordToken token = new UsernamePasswordToken(username, password);
         Subject subject = SecurityUtils.getSubject();
         try {
             subject.login(token);
             User user = (User) subject.getPrincipal();
-            HttpSession session = request.getSession();
             session.setAttribute("user:"+username,user);
             return ResultUtil.successResult(ResponseEnum.SUCCESS);
         }catch (Exception e){

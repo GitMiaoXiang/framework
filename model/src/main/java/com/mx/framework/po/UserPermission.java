@@ -22,4 +22,5 @@ public class UserPermission {
 
     private String url;
 
+
 }
