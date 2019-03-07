@@ -13,4 +13,5 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class PermissionServiceImpl extends BaseService<UserPermission> implements IPermissionService {
+
 }

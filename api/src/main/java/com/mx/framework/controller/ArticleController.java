@@ -6,6 +6,7 @@ import com.mx.framework.po.Article;
 import com.mx.framework.service.IArticleService;
 import com.mx.framework.utils.ResultUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -40,6 +41,7 @@ public class ArticleController {
      * @return
      */
     @PostMapping("/save")
+    @CacheEvict
     public ResultData add(Article article){
         Integer save = articleService.save(article);
         ResultData resultData;
@@ -70,6 +72,7 @@ public class ArticleController {
         }
         return resultData;
     }
+
 
 
 }

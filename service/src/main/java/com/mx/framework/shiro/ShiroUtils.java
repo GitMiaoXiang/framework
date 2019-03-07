@@ -8,6 +8,7 @@ import org.apache.shiro.web.filter.mgt.DefaultFilterChainManager;
 import org.apache.shiro.web.filter.mgt.PathMatchingFilterChainResolver;
 import org.apache.shiro.web.servlet.AbstractShiroFilter;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -19,6 +20,7 @@ import java.util.Map;
  * Date :Create in 2019/3/2 23:39
  * Modified By :
  */
+@Component
 public class ShiroUtils {
 
     @Autowired
@@ -30,8 +32,18 @@ public class ShiroUtils {
      * 初始化权限
      */
     public Map<String, String> loadFilterChainDefinitions() {
+        return createShiroPerMap(permissionService,shiroFilterFactoryBean);
+    }
+
+    /**
+     * 生成权数据
+     * @param permissionService
+     * @param shiroFilterFactoryBean
+     * @return
+     */
+    public static Map<String, String> createShiroPerMap(IPermissionService permissionService ,ShiroFilterFactoryBean shiroFilterFactoryBean){
         // 权限控制map.从数据库获取
-        Map<String, String> filterMap = new LinkedHashMap<String, String>();
+        Map<String, String> filterMap = new LinkedHashMap<>();
         //这些代码仅供测试使用
         filterMap.put("/index","authc"); //必须登录 在DefaultFilter中
         filterMap.put("/login","anon"); //不用校验

@@ -1,8 +1,6 @@
 package com.mx.framework.shiro;
 
-import com.mx.framework.po.UserPermission;
 import com.mx.framework.service.IPermissionService;
-import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.mgt.SecurityManager;
 import org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
@@ -18,9 +16,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import java.util.LinkedHashMap;
-import java.util.List;
-
 /**
  * @author : ShangGuanMingPeng
  * Description : Shiro 配置类
@@ -32,6 +27,7 @@ public class ShiroConfigurtion {
 
     @Autowired
     private IPermissionService permissionService;
+
 
     @Value("${spring.redis.host}")
     private String host;
@@ -52,37 +48,7 @@ public class ShiroConfigurtion {
         shiroFilterFactoryBean.setLoginUrl("/loginPage");
         shiroFilterFactoryBean.setSuccessUrl("/index");
         shiroFilterFactoryBean.setUnauthorizedUrl("/unauthorized"); //没有权限访问
-
-        //权限配置
-        LinkedHashMap<String,String> filterMap = new LinkedHashMap<>();
-
-        //这些代码仅供测试使用
-        filterMap.put("/index","authc"); //必须登录 在DefaultFilter中
-        filterMap.put("/login","anon"); //不用校验
-        filterMap.put("/loginUser","anon");
-        filterMap.put("/admin","roles[admin]"); //只有在admin角色下才可以访问
-        filterMap.put("/edit","perms[edit]"); //在PermissionsAuthorizationFilter中
-
-        //正式环境配置
-        //配置退出 过滤器,其中的具体的退出代码Shiro已经替我们实现了
-        filterMap.put("/logout", "logout");
-        filterMap.put("/css/**","anon");
-        filterMap.put("/js/**","anon");
-        filterMap.put("/img/**","anon");
-        filterMap.put("/font-awesome/**","anon");
-        //<!-- 过滤链定义，从上向下顺序执行，一般将 /**放在最为下边 -->:这是一个坑呢，一不小心代码就不好使了;
-        //<!-- authc:所有url都必须认证通过才可以访问; anon:所有url都都可以匿名访问-->
-        //自定义加载权限资源关系
-        List<UserPermission> resourcesList = permissionService.queryAll();
-        for(UserPermission permission:resourcesList){
-            String url = permission.getUrl();
-            if (StringUtils.isNotEmpty(url)) {
-                String permissionFilter = "perms[" + url+ "]";
-                filterMap.put(url,permissionFilter);
-            }
-        }
-        filterMap.put("/**","user"); //需要登录才能访问 在UserFilter
-        shiroFilterFactoryBean.setFilterChainDefinitionMap(filterMap);
+        ShiroUtils.createShiroPerMap(permissionService,shiroFilterFactoryBean);
         return shiroFilterFactoryBean;
     }
 

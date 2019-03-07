@@ -61,6 +61,8 @@ public class UserController {
         return "edit";
     }
 
+
+
     @GetMapping("/logout")
     public String logout(){
         Subject subject = SecurityUtils.getSubject();
