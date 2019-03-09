@@ -1,5 +1,6 @@
 package com.mx.framework.netty;
 
+import com.mx.framework.Const;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelPipeline;
 import io.netty.channel.socket.SocketChannel;
@@ -7,14 +8,23 @@ import io.netty.handler.codec.http.HttpObjectAggregator;
 import io.netty.handler.codec.http.HttpServerCodec;
 import io.netty.handler.codec.http.websocketx.WebSocketServerProtocolHandler;
 import io.netty.handler.stream.ChunkedWriteHandler;
+import io.netty.handler.timeout.IdleStateHandler;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 
 /**
  * @author : ShangGuanMingPeng
- * Description :
+ * Description : WebSocket初始化类
  * Date :Create in 2019/3/7 23:10
  * Modified By :
  */
-public class WSSServerInitialzer extends ChannelInitializer<SocketChannel> {
+@Component
+public class WSSServerInitialize extends ChannelInitializer<SocketChannel> {
+
+    @Autowired
+    private Const aConst;
+
     @Override
     protected void initChannel(SocketChannel socketChannel) throws Exception {
         ChannelPipeline pipeline = socketChannel.pipeline();
@@ -32,9 +42,16 @@ public class WSSServerInitialzer extends ChannelInitializer<SocketChannel> {
         //本handler会帮你处理一些复杂的事
         //会帮你处理握手动作，handshaking(close,ping,pong) ping+pong = 心跳
         //对于websocket,都是以frames进行传输的，不同的数据类型对应的frames也不同
-        pipeline.addLast(new WebSocketServerProtocolHandler("/ws"));
+        pipeline.addLast(new WebSocketServerProtocolHandler(aConst.getWebSocketPath()));
 
+        //加入心跳Hand
+        pipeline.addLast(new IdleStateHandler(
+                aConst.getReadTimeout(),
+                aConst.getWriteTimeout(),
+                aConst.getAllTimeout()
+        ));
         //自定义handler
         pipeline.addLast(new WSSChatHandler());
+
     }
 }

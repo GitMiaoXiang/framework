@@ -40,6 +40,13 @@ httpclient:
 
 config:
   pageSize: 15
+  #Netty端口
+  netty:
+    port: 7777
+    readTimeout: 5
+    writeTimeout: 0
+    allTimeout: 0
+    webSocketPath: /ws
 
 
 
